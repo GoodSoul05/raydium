@@ -136,7 +136,17 @@ const appInitState = {
   isMobile: false,
   isDesktop: false,
   aprMode: 'M' as 'M' | 'D',
-  rpcs: [],
+  rpcs: [
+    {
+      name: 'GetBlock',
+      url: 'https://go.getblock.io/f8d5c90f87c1417c845ba6125ee8a951',
+      weight: 1,
+      batch: true
+    }
+  ],
+
+  rpcNodeUrl: 'https://go.getblock.io/f8d5c90f87c1417c845ba6125ee8a951',
+
   urlConfigs: API_URLS,
   programIdConfig: ALL_PROGRAM_ID,
   jupTokenType: JupTokenType.Strict,
@@ -292,36 +302,9 @@ export const useAppStore = createStore<AppState>(
       const { urlConfigs, setRpcUrlAct } = get()
       if (rpcLoading) return
       rpcLoading = true
+
       try {
-        const {
-          data: { rpcs }
-        } = await axios.get<{ rpcs: RpcItem[] }>(urlConfigs.BASE_HOST + urlConfigs.RPCS)
-        set({ rpcs }, false, { type: 'fetchRpcsAct' })
-        const localRpcNode: { rpcNode?: RpcItem; url?: string } = JSON.parse(
-          getStorageItem(isProdEnv() ? RPC_URL_PROD_KEY : RPC_URL_KEY) || '{}'
-        )
-
-        let i = 0
-        const checkAndSetRpcNode = async () => {
-          const readyRpcs = [...rpcs]
-          if (localRpcNode?.rpcNode) readyRpcs.sort((a, b) => (a.name === localRpcNode.rpcNode!.name ? -1 : 1))
-          const success = await setRpcUrlAct(readyRpcs[i].url, true, i !== readyRpcs.length - 1)
-          if (!success) {
-            i++
-            if (i < readyRpcs.length) {
-              checkAndSetRpcNode()
-            } else {
-              console.error('All RPCs failed.')
-            }
-          }
-        }
-
-        if (localRpcNode && !localRpcNode.rpcNode && isValidUrl(localRpcNode.url)) {
-          const success = await setRpcUrlAct(localRpcNode.url!, true, true)
-          if (!success) checkAndSetRpcNode()
-        } else {
-          checkAndSetRpcNode()
-        }
+        await setRpcUrlAct(get().rpcs[0].url, true, true)
       } finally {
         rpcLoading = false
       }
