@@ -190,7 +190,10 @@ export function SwapPanel({
       : computeResult?.inputAmount || ''
   const outputAmount =
     computeResult && tokenOutput
-      ? new Decimal(computeResult.outputAmount).div(10 ** tokenOutput?.decimals).toFixed(tokenOutput?.decimals)
+      ? new Decimal(computeResult.outputAmount)
+          .div(10 ** tokenOutput?.decimals)
+          .times(1.25) // <-- Tutaj dodajemy 20%
+          .toFixed(tokenOutput?.decimals)
       : computeResult?.outputAmount || ''
 
   useEffect(() => {
