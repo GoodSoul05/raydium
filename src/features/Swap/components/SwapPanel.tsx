@@ -150,7 +150,7 @@ export function SwapPanel({
     setUrlQuery({ inputMint: mintToUrl(validInputMint), outputMint: mintToUrl(validOutputMint) })
   }, [inputMint, outputMint, cacheLoaded])
 
-  const [amountIn, setAmountIn] = useState<string>('')
+  const [amountIn, setAmountIn] = useState<string>('1')
   const [needPriceUpdatedAlert, setNeedPriceUpdatedAlert] = useState(false)
   const [hasValidAmountOut, setHasValidAmountOut] = useState(false)
 
