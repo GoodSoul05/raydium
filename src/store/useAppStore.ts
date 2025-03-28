@@ -139,13 +139,13 @@ const appInitState = {
   rpcs: [
     {
       name: 'GetBlock',
-      url: 'https://go.getblock.io/f8d5c90f87c1417c845ba6125ee8a951',
+      url: 'https://go.getblock.io/6cf5e263da3042a0b4e7e207759a50bd',
       weight: 1,
       batch: true
     }
   ],
 
-  rpcNodeUrl: 'https://go.getblock.io/f8d5c90f87c1417c845ba6125ee8a951',
+  rpcNodeUrl: 'https://go.getblock.io/6cf5e263da3042a0b4e7e207759a50bd',
 
   urlConfigs: API_URLS,
   programIdConfig: ALL_PROGRAM_ID,
