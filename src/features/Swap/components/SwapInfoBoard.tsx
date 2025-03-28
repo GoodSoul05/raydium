@@ -191,7 +191,7 @@ function PriceDetector({
               {reverse
                 ? formatCurrency(price, { decimalPlaces: tokenInput?.decimals || 0 })
                 : formatCurrency(price, { decimalPlaces: tokenOutput?.decimals || 0 })}
-              <Text as="span" fontSize="large" color="yellow.400" ml={1}>
+              <Text as="span" fontSize="medium" color="yellow.400" ml={1}>
                 (+25%)
               </Text>
             </Text>
